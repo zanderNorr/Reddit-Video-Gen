@@ -6,7 +6,16 @@
 ## Required Python Packages
 Install the following dependencies using pip:
 ```
-pip install selenium praw gtts pydub moviepy audiopy yt-dlp numpy<2.0.0 whisper ffmpeg
+pip install
+selenium
+praw
+gtts
+pydub
+moviepy
+audiopy
+yt-dlp
+numpy==2.0.0 (make sure numpy is version <= 2.0.0)
+whisper ffmpeg
 ```
 
 ## Setup Instructions
