@@ -15,7 +15,8 @@ moviepy
 audiopy
 yt-dlp
 numpy==2.0.0 (make sure numpy is version <= 2.0.0)
-whisper ffmpeg
+whisper
+ffmpeg
 ```
 
 ## Setup Instructions
