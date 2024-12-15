@@ -41,6 +41,7 @@ After completing the above steps, open the `main.py` file and navigate to the se
 - Reddit **Client ID**
 - Reddit **Client Secret**
 - Reddit **User Agent**
+
 (Ensure these values are correctly inserted for the application to function properly.)
 
 ## Usage Instructions
