@@ -15,7 +15,7 @@ def find_and_kill_processes_using_file(file_path):
             continue
     return False
 
-def delete_specific_folders_in_current_directory(folders_to_delete, retries=3, delay=1):
+def clear_cache(folders_to_delete, retries=3, delay=1):
     current_directory = os.getcwd()
     
     for item in os.listdir(current_directory):

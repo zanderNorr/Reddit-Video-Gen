@@ -10,8 +10,8 @@ def fetch_comment_text(reddit_url, num_comments):
     reddit = praw.Reddit(
         client_id=client_id,  # 'RMEptsuiFAIls7O8NfhbxA'
         client_secret=client_secret,  #'XpBAWCtNW5-y-fLfhxx6tGNdcNHp2w'
-        user_agent=user_agent,
-    )  #'Test/0.1 by Internal_Ocelot_181'
+        user_agent=user_agent, #'Test/0.1 by Internal_Ocelot_181'
+    )
     submission = reddit.submission(url=reddit_url)
     comments = [
         comment.body

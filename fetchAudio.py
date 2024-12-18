@@ -92,6 +92,3 @@ def video_length(video_path):
 #             print(f"Error processing {filename}: {e}")
     
 #     return output_files
-
-if __name__ == '__main__':
-    create_text_image()

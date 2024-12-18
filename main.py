@@ -2,21 +2,19 @@ from createVideo import (
     clip_video,
     combine_video_audio_picture,
     crop_to_vertical,
-    combine_video_audio_multiple_pictures,
 )
 from fetchComments import fetch_comment_text
-from fetchAudio import text_to_speech, combine_mp3, audio_length, video_length, create_text_image
+from fetchAudio import text_to_speech, combine_mp3, audio_length, video_length
 from fetchVideo import download_youtube_video
 from imageCapture import capture_text
-from cleanup import delete_specific_folders_in_current_directory
+from cleanup import clear_cache
 from subtitleGen import transcription
 import random as r
-
 
 def start_menu():
     while True:
         print(
-            f"{'-'*50}\nShort-Video Creation Tool v1.1.0\n(Last Update 12/14/2024)\nAuthor: Zander Norris\n{'-'*50}"
+            f"{'-'*50}\nShort-Video Creation Tool v1.1.1\n(Last Update 12/17/2024)\nAuthor: Zander Norris\n{'-'*50}"
         )
         print(f"Options:\n1. Create Short Video\n2. Settings\n3. Exit\n{'-'*50}")
         try:
@@ -44,12 +42,13 @@ def create_short_video():
             break
         except ValueError:
             print("Invalid Input. Please enter an integer.")
-    title_path = capture_text(reddit_url)
-    comments = fetch_comment_text(reddit_url, num_comments)
 
-    tts_comments = text_to_speech(comments)
+    title_screenshot_path = capture_text(reddit_url)
+    comment_list = fetch_comment_text(reddit_url, num_comments)
 
-    combined_audio = combine_mp3(tts_comments)
+    tts_comment_path = text_to_speech(comment_list)
+
+    combined_audio_mp3 = combine_mp3(tts_comment_path)
 
     video_path = download_youtube_video(youtube_url)
     flag = input("Specific start time of video (Y/N): ").upper()
@@ -65,9 +64,12 @@ def create_short_video():
     elif flag == "N":
         start_time = r.randint(
             0,
-            (int(video_length(video_path)) - int((audio_length(combined_audio) - 10))),
+            (
+                int(video_length(video_path))
+                - int((audio_length(combined_audio_mp3) - 10))
+            ),
         )
-    end_time = audio_length(combined_audio) + start_time
+    end_time = audio_length(combined_audio_mp3) + start_time
 
     clipped_video_path = clip_video(video_path, start_time, end_time)
 
@@ -81,7 +83,7 @@ def create_short_video():
             print("Invalid Input. Please enter an integer.")
     if flag == 1:
         output_path = combine_video_audio_picture(
-            cropped_video_path, combined_audio, title_path
+            cropped_video_path, combined_audio_mp3, title_screenshot_path
         )
         transcription(output_path)
     elif flag == 2:
@@ -120,8 +122,15 @@ def settings():
             print("Successfully wrote user agent to memory.")
             settings()
     elif flag == 4:
-        temp_dir = ["Images", "VideoFiles", "Audio", "AllAudio", "ClippedVideo", 'textImages']
-        delete_specific_folders_in_current_directory(temp_dir)
+        temp_dir = [
+            "Images",
+            "VideoFiles",
+            "Audio",
+            "AllAudio",
+            "ClippedVideo",
+            "textImages",
+        ]
+        clear_cache(temp_dir)
     elif flag == 5:
         start_menu()
 

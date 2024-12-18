@@ -35,7 +35,7 @@ def transcription(video_path):
     vf_filter = f"subtitles={srt_path}:force_style='MarginV=30'"
     # Add subtitles to the video
     ffmpeg.input(video_path).output(output_video_path, vf=vf_filter, acodec = 'copy').run()
-
+    print(f'Successfully saved video @ {output_video_path}.')
 #testing purposes
 if __name__ == '__main__':
     transcription('FinalVideo\\finalVideo.mp4')
